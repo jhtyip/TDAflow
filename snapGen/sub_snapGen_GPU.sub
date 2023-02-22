@@ -1,0 +1,20 @@
+universe = vanilla
+log = outFiles/job_GPU_$(Cluster).log
+output = outFiles/job_GPU_$(Cluster)_$(Process).out
+error = outFiles/job_GPU_$(Cluster)_$(Process).err
+
+executable = exe_snapGen.sh
+arguments = 0.3075 0.8159
+
+transfer_input_files = snapGen.py
+
++WantGPULab = true
++GPUJobLength = "short"
+
+requirements = (Target.HasCHTCStaging == true) && (OpSysMajorVer == 8)
+request_gpus = 1
+request_cpus = 1
+request_memory = 4GB
+request_disk = 2GB
+
+queue
