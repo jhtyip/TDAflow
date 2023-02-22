@@ -10,7 +10,7 @@ transfer_input_files = snapGen.py
 
 requirements = (Target.HasCHTCStaging == true) && (OpSysMajorVer == 8)
 request_cpus = 1
-request_memory = 1GB
-request_disk = 1GB
+request_memory = 2GB
+request_disk = 3GB
 
 queue om,s8 from om_s8_list.txt
