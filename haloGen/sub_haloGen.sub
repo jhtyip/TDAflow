@@ -1,0 +1,15 @@
+universe = vanilla
+log = outFiles/job_$(Cluster).log
+output = outFiles/job_$(Cluster)_$(Process).out
+error = outFiles/job_$(Cluster)_$(Process).err
+
+executable = exe_haloGen.sh
+
+transfer_input_files = haloGen.py
+
+requirements = (Target.HasCHTCStaging == true) && (OpSysMajorVer == 8)
+request_cpus = 3
+request_memory = 4GB
+request_disk = 4GB
+
+queue
