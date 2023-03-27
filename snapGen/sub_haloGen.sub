@@ -1,0 +1,16 @@
+universe = vanilla
+log = outFiles/job_$(Cluster).log
+output = outFiles/job_$(Cluster)_$(Process).out
+error = outFiles/job_$(Cluster)_$(Process).err
+
+executable = exe_haloGen.sh
+arguments = $(om) $(s8)
+
+transfer_input_files = haloGen.py
+
+requirements = (Target.HasCHTCStaging == true) && (OpSysMajorVer == 8)
+request_cpus = 1
+request_memory = 10GB
+request_disk = 5GB
+
+queue om,s8 from om_s8_list.txt

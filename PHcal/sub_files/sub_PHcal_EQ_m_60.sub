@@ -1,0 +1,16 @@
+universe = vanilla
+log = PHcal_$(subfolder_item_noSlash)_$(firstNum)_$(secondNum)_60.log
+
+executable = exe_PHcal.sh
+arguments = $(subfolder_item_noSlash) $(firstNum) $(secondNum) $(pythonArgv) 60
+output = PHcal_$(subfolder_item_noSlash)_$(firstNum)_$(secondNum)_60.out
+error = PHcal_$(subfolder_item_noSlash)_$(firstNum)_$(secondNum)_60.err
+
+transfer_input_files = fclaux.py, main.py, mainRunner.py, param.py, pdiagram.py, tar_rm_Output.py
+
+requirements = (Target.HasCHTCStaging == true) && (OpSysMajorVer == 8)
+request_cpus = 1
+request_memory = 4GB
+request_disk = 3GB
+
+queue subfolder_item_noSlash,firstNum,secondNum,pythonArgv from ./fileLists/fileList_EQ_m.txt
