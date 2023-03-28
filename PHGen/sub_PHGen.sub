@@ -4,7 +4,7 @@ output = outFiles/job_$(Cluster)_$(Process).out
 error = outFiles/job_$(Cluster)_$(Process).err
 
 executable = exe_PHGen.sh
-arguments = $(om) $(s8) 15
+arguments = $(om) $(s8) $(a0) $(z) $(n_steps) $(L) $(N) $(batch) 5
 
 transfer_input_files = main.py, fclaux.py, param.py, pdiagram.py
 
@@ -13,4 +13,4 @@ request_cpus = 1
 request_memory = 2GB
 request_disk = 2GB
 
-queue om,s8 from om_s8_list.txt
+queue om,s8,a0,z,n_steps,L,N,batch from om_s8_list.txt

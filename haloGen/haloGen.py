@@ -7,12 +7,20 @@ import os
 om_input = float(sys.argv[1])
 s8_input = float(sys.argv[2])
 
-a0      = 0.1       #the initial epoch from where we begin the evolution, a0=0 corresponds to birth but is numerically unstable
-af      = 1.0       #final epoch where we visualize structures, af=1 corresponds to today
-n_steps = 10        #number of time-steps to split the total evolution into
-L       = 256       #Physical size of the Universe in Mpc/h
-N       = 128        #Number of mesh-points along one axis, size of the cube. Then the number of particles will be N^3
-batch   = 1         #Batch size, how many independent Universes to simulate
+a0 = float(sys.argv[3])
+z = float(sys.argv[4])
+n_steps = int(sys.argv[5])
+L = int(sys.argv[6])
+N = int(sys.argv[7])
+batch = int(sys.argv[8])
+
+# a0      = 0.1       #the initial epoch from where we begin the evolution, a0=0 corresponds to birth but is numerically unstable
+# z       = 0.5
+af      = 1.0 / (1.0 + z)       #final epoch where we visualize structures, af=1 corresponds to today
+# n_steps = 10        #number of time-steps to split the total evolution into
+# L       = 512       #Physical size of the Universe in Mpc/h
+# N       = 256        #Number of mesh-points along one axis, size of the cube. Then the number of particles will be N^3
+# batch   = 1         #Batch size, how many independent Universes to simulate
 
 # Notes: Uros uses (n_steps=10, L=512, N=128). Hence, (n_steps=10, L=256, N=64) preserves the resolution/particle density
 
@@ -70,13 +78,13 @@ particle_mass = np.array([om_input*rho_crit*(L**3)*(Mpc**3)/(N**3)/h/Ms]*(N**3))
 snap_ASCII = [particle_position_x, particle_position_y, particle_position_z, particle_velocity_x, particle_velocity_y, particle_velocity_z, np.arange(particle_position_x.shape[0])]
 snap_ASCII = np.array(snap_ASCII).T
 
-saveName = "fs_{}_{}_{}_{}_{}_{}_{}_{}".format(a0, af, n_steps, L, N, batch, om_input, s8_input)
+saveName = "fs_{}_{}_{}_{}_{}_{}_{}_{}".format(om_input, s8_input, a0, z, n_steps, L, N, batch)
 np.savetxt("{}.ascii".format(saveName), snap_ASCII)
 
 os.system("mv {}.ascii /staging/hyip2/TDAflow/haloGen/snaps/".format(saveName))
 
 
-def quickstart_cfg(quickstart_cfg_saveName, PARTICLE_MASS, Om, OUTBASE):
+def quickstart_cfg(quickstart_cfg_saveName, PARTICLE_MASS, Ol, Om, OUTBASE):
     quickstart_cfg_content = r"""#Rockstar Halo Finder
 #Quickstart config file for single-cpu, single snapshot halo finding
 #Note that non-periodic boundary conditions are assumed.
@@ -93,7 +101,7 @@ PARTICLE_MASS = {}       # must specify (in Msun/h) for ART or ASCII
 # particle data file
 SCALE_NOW = 1
 h0 = 0.6774
-Ol = 0.6911
+Ol = {}
 Om = {}
 
 # For GADGET2, you may need to specify conversion parameters.
@@ -120,17 +128,19 @@ OUTBASE = {}
 """
 
     file = open(quickstart_cfg_saveName, "w")
-    file.write(quickstart_cfg_content.format(PARTICLE_MASS, Om, OUTBASE))
+    file.write(quickstart_cfg_content.format(PARTICLE_MASS, Ol, Om, OUTBASE))
     file.close()
 
 
-quickstart_cfg_saveName = "/staging/hyip2/TDAflow/haloGen/cfgs/quickstart_{}_{}.cfg".format(om_input, s8_input)
+quickstart_cfg_saveName = "/staging/hyip2/TDAflow/haloGen/cfgs/quickstart_{}.cfg".format(saveName)
 OUTBASE = "/staging/hyip2/TDAflow/haloGen/cfgs/{}".format(saveName)
 os.system("mkdir {}".format(OUTBASE))
-quickstart_cfg(quickstart_cfg_saveName, particle_mass[0]*h, om_input, OUTBASE)
+quickstart_cfg(quickstart_cfg_saveName, particle_mass[0]*h, 1 - om_input, om_input, OUTBASE)
 
 os.system("/staging/hyip2/TDAflow/haloGen/rockstar/rockstar -c {} {}".format(quickstart_cfg_saveName, "/staging/hyip2/TDAflow/haloGen/snaps/{}.ascii".format(saveName)))
 halo = np.genfromtxt("{}/halos_0.0.ascii".format(OUTBASE))
 np.save("/staging/hyip2/TDAflow/haloGen/halos/{}".format(saveName), halo[:, [1,2,4,8,9,10]])  # [num_p,mvir,rvir,x,y,z]
 
-# os.system("cp {}/halos_0.0.ascii /staging/hyip2/TDAflow/haloGen/halos/{}.ascii".format(OUTBASE, saveName))
+# os.system("rm /staging/hyip2/TDAflow/haloGen/snaps/{}.ascii".format(saveName))
+# os.system("rm {}".format(quickstart_cfg_saveName))
+# os.system("rm -r {}".format(OUTBASE))

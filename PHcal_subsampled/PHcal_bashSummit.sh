@@ -1,7 +1,0 @@
-#!/bin/bash
-condor_submit sub_PHcal_s8_p_1.sub
-condor_submit sub_PHcal_sigma_logM_m_1.sub
-condor_submit sub_PHcal_sigma_logM_p_1.sub
-condor_submit sub_PHcal_w_p_1.sub
-condor_submit sub_PHcal_LC_m_1.sub
-condor_submit sub_PHcal_LC_p_1.sub

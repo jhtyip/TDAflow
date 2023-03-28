@@ -35,22 +35,21 @@ def main(arg_hfile, arg_savePrefix, arg_k_):
     #     pi.IMAG(cut=arg_cut, npool=arg_npool, outfile=arg_pdfile, onedim=arg_onedim, boundsName=arg_boundsName, extremeBounds=arg_extremeBounds, savePrefix=arg_savePrefix, row=arg_row)      
 
 
-a0      = 0.1       #the initial epoch from where we begin the evolution, a0=0 corresponds to birth but is numerically unstable
-af      = 1.0       #final epoch where we visualize structures, af=1 corresponds to today
-n_steps = 10        #number of time-steps to split the total evolution into
-L       = 256       #Physical size of the Universe in Mpc/h
-N       = 128        #Number of mesh-points along one axis, size of the cube. Then the number of particles will be N^3
-batch   = 1         #Batch size, how many independent Universes to simulate
-
 # Script
 om_input = sys.argv[1]
 s8_input = sys.argv[2]
-arg_k_ = int(sys.argv[3])
+a0 = float(sys.argv[3])
+z = float(sys.argv[4])
+n_steps = int(sys.argv[5])
+L = int(sys.argv[6])
+N = int(sys.argv[7])
+batch = int(sys.argv[8])
+arg_k_ = int(sys.argv[9])
 
 # Run main()
-arg_savePrefix = "/staging/hyip2/TDAflow/PHGen/PD/fs_{}_{}_{}_{}_{}_{}_{}_{}_{}".format(a0, af, n_steps, L, N, batch, om_input, s8_input, arg_k_)
+arg_savePrefix = "/staging/hyip2/TDAflow/PHGen/PD/fs_{}_{}_{}_{}_{}_{}_{}_{}_{}".format(om_input, s8_input, a0, z, n_steps, L, N, batch, arg_k_)
 
-arg_hfile = "/staging/hyip2/TDAflow/haloGen/halos/fs_{}_{}_{}_{}_{}_{}_{}_{}.npy".format(a0, af, n_steps, L, N, batch, om_input, s8_input)
+arg_hfile = "/staging/hyip2/TDAflow/haloGen/halos/fs_{}_{}_{}_{}_{}_{}_{}_{}.npy".format(om_input, s8_input, a0, z, n_steps, L, N, batch)
 # arg_pdfile = ""
 
 # arg_arrayjob = False  # [useless]

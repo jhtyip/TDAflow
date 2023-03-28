@@ -4,13 +4,13 @@ output = outFiles/job_$(Cluster)_$(Process).out
 error = outFiles/job_$(Cluster)_$(Process).err
 
 executable = exe_haloGen.sh
-arguments = $(om) $(s8)
+arguments = $(om) $(s8) $(a0) $(z) $(n_steps) $(L) $(N) $(batch)
 
 transfer_input_files = haloGen.py
 
 requirements = (Target.HasCHTCStaging == true) && (OpSysMajorVer == 8)
 request_cpus = 1
-request_memory = 10GB
-request_disk = 5GB
+request_memory = 20GB
+request_disk = 20GB
 
-queue om,s8 from om_s8_list.txt
+queue om,s8,a0,z,n_steps,L,N,batch from om_s8_list.txt

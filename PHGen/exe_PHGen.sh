@@ -10,14 +10,14 @@ mkdir $ENVDIR
 cp /staging/hyip2/$ENVNAME.tar.gz ./
 tar -xzf $ENVNAME.tar.gz -C $ENVDIR/
 . $ENVDIR/bin/activate
+rm $ENVNAME.tar.gz
 
-python main.py $1 $2 $3
+python main.py $1 $2 $3 $4 $5 $6 $7 $8 $9
 
 rm main.py
 rm fclaux.py
 rm param.py
 rm pdiagram.py
-rm $ENVNAME.tar.gz
 
 mkdir empty_dir
 rsync -a --delete empty_dir/ $ENVNAME/
