@@ -141,6 +141,6 @@ os.system("/staging/hyip2/TDAflow/haloGen/rockstar/rockstar -c {} {}".format(qui
 halo = np.genfromtxt("{}/halos_0.0.ascii".format(OUTBASE))
 np.save("/staging/hyip2/TDAflow/haloGen/halos/{}".format(saveName), halo[:, [1,2,4,8,9,10]])  # [num_p,mvir,rvir,x,y,z]
 
-# os.system("rm /staging/hyip2/TDAflow/haloGen/snaps/{}.ascii".format(saveName))
-# os.system("rm {}".format(quickstart_cfg_saveName))
-# os.system("rm -r {}".format(OUTBASE))
+os.system("rm /staging/hyip2/TDAflow/haloGen/snaps/{}.ascii".format(saveName))
+os.system("rm {}".format(quickstart_cfg_saveName))
+os.system("rm -r {}".format(OUTBASE))
