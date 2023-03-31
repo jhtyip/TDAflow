@@ -14,7 +14,7 @@ L       = 256       #Physical size of the Universe in Mpc/h
 N       = 160        #Number of mesh-points along one axis, size of the cube. Then the number of particles will be N^3
 batch   = 1         #Batch size, how many independent Universes to simulate
 
-n = 10000
+n = 2
 
 for i in range(n):
     draw = np.random.uniform(low=om_s8_min, high=om_s8_max)
