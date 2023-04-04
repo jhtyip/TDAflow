@@ -63,7 +63,7 @@ sigma = float(sys.argv[12])
 
 pd_fileName = "fs_{}_{}_{}_{}_{}_{}_{}_{}_{}".format(om_input, s8_input, a0, z, n_steps, L, N, batch, arg_k_)
 
-pd = np.load("staging/hyip2/TDAflow/PHGen/PD/{}".format(pd_fileName))
+pd = np.load("/staging/hyip2/TDAflow/PHGen/PD/{}.npy".format(pd_fileName))
 pd = [[elm[0], [elm[1], elm[2]]] for elm in pd]  # [dimension, [birth, death]]
 p0, p1, p2 = cleanPD(pd, 0, 1)
 PIs = calcSavePI(p0, p1, p2, bounds_fileName, res_len, sigma)
