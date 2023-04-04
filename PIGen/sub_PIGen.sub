@@ -4,7 +4,7 @@ output = outFiles/job_$(Cluster)_$(Process).out
 error = outFiles/job_$(Cluster)_$(Process).err
 
 executable = exe_PIGen.sh
-arguments = $(om) $(s8) $(a0) $(z) $(n_steps) $(L) $(N) $(batch) 5 /staging/hyip2/TDAflow/PIGen/bounds.npy 32 2
+arguments = $(om) $(s8) $(a0) $(z) $(n_steps) $(L) $(N) $(batch) 5 /staging/hyip2/TDAflow/PIGen/bounds.npy 64 2
 
 transfer_input_files = PIGen.py
 
