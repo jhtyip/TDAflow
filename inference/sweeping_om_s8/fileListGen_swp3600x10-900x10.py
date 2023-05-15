@@ -1,6 +1,6 @@
 import numpy as np
 
-f = open("om_s8_list.txt", "w")
+f = open("om_s8_list_swp3600x10-900x10.txt", "w")
 
 # Uros
 # om_s8_min = [0.1, 0.6]
