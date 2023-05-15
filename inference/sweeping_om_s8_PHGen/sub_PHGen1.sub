@@ -1,0 +1,16 @@
+universe = vanilla
+log = outFiles/job_$(Cluster).log
+output = outFiles/job_$(Cluster)_$(Process).out
+error = outFiles/job_$(Cluster)_$(Process).err
+
+executable = exe_PHGen.sh
+arguments = $(om) $(s8) $(a0) $(z) $(n_steps) $(L) $(N) $(batch) 5 $(i)
+
+transfer_input_files = main.py, fclaux.py, param.py, pdiagram.py
+
+requirements = (Target.HasCHTCStaging == true) && (OpSysMajorVer == 8)
+request_cpus = 1
+request_memory = 2GB
+request_disk = 2GB
+
+queue om,s8,a0,z,n_steps,L,N,batch,i from om_s8_list1.txt
