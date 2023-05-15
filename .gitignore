@@ -4,3 +4,5 @@ inference/inference_fid5000_swp10000x1.tar.gz
 inference/inference_swp900x10.tar.gz
 misc/haloGen_testing/tests/fs_0.1_1.0_10_256_128_1_0.4496_1.0612.ascii
 inference/inference_swp3600x10-900x10.tar.gz
+PIGen_64_1.5.tar.gz
+PIGen_64_2.tar.gz
