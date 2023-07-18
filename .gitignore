@@ -8,3 +8,6 @@ inference/inference_swp3600x10-900x10.tar.gz
 PIGen_64_1.5.tar.gz
 PIGen_64_2.tar.gz
 plotting/fs_0.3089_0.8159_0.1_0.5_10_256_160_1_fid_5000.ascii
+inference/64.tar.gz
+inference/64/64/*
+infernece/64_w_shotnoise/64/*
